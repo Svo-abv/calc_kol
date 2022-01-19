@@ -2,6 +2,7 @@ import React, { ChangeEvent, useMemo, useState } from 'react';
 import { isTemplateExpression } from 'typescript';
 import './App.css';
 import ExInput from './components/ExInput';
+import ExKofList from './components/ExKofList';
 import konversKofData from './data/data.json';
 import { kofOO,kofItemOO,kofOOHB, KoversKofItem  } from './types/types';
 
@@ -85,8 +86,15 @@ function App() {
 
   const konversKofs: KoversKofItem[]=konversKofData.data;
 
+  const [selKonversKofs,setSelKonversKofs]= useState<KoversKofItem[]>([]);
 
-  console.log(konversKofData);
+  const [idxSelectedKofs,setIdxSelectedKofs]=useState(0);
+
+
+function addInMass()
+{
+    setSelKonversKofs(selKonversKofs.concat(konversKofs[idxSelectedKofs]));
+}
 
  // const selected
 
@@ -123,19 +131,18 @@ function App() {
       ?<h1>ОО ОО Харриса-Бенедикта: {OOHB}</h1>
       :<h1></h1>    
       }
-      <select>
-          
+      <select value={idxSelectedKofs} onChange={ (e:ChangeEvent<HTMLSelectElement>) => { setIdxSelectedKofs(Number(e.target.value))}}>         
           {
             konversKofs.map((item)  => 
-              <option key={item.id} value={item.value}>{item.name}, {item.value}</option>
-            
-
+              <option key={item.id} value={item.id}>{item.name}, {item.value}</option>
             )
-          }
-          
+          }        
       </select>
-      <button>Добавить условие</button>
+      <button onClick={addInMass}>Добавить условие</button>
+      <hr/>
+      <ExKofList list={selKonversKofs}/>
     </div>
+
   );
 }
 
