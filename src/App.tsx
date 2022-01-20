@@ -5,8 +5,14 @@ import ExInput from './components/ExInput';
 import ExKofList from './components/ExKofList';
 import konversKofData from './data/data.json';
 import { kofOO, kofItemOO, kofOOHB, KoversKofItem } from './types/types';
+import Button from '@mui/material/Button';
+import { Box, FormControl, Grid, InputLabel, MenuItem, Select, SelectChangeEvent, Stack } from '@mui/material';
 
 
+import '@fontsource/roboto/300.css';
+import '@fontsource/roboto/400.css';
+import '@fontsource/roboto/500.css';
+import '@fontsource/roboto/700.css';
 
 function App() {
 
@@ -15,7 +21,6 @@ function App() {
   const [height, setHeight] = useState<number>(1.2);
   const [age, setAge] = useState<number>(3);
   const [IMT, setIMT] = useState(0);
-
 
   const calcIMT = useMemo(() => {
     let tmpIMT: number = 0;
@@ -90,59 +95,61 @@ function App() {
 
 
   const addInMass = () => {
-    console.log('click');
 
-    setSelKonversKofs((prev) => {
-      prev.push(konversKofs[idxSelectedKofs])
-      console.log(prev);
+    if (selKonversKofs.indexOf(konversKofs[idxSelectedKofs - 1]) < 0) {
+      let tmp = selKonversKofs.concat(konversKofs[idxSelectedKofs - 1]);
+      setSelKonversKofs(tmp);
+    }
 
-      return prev
-    });
-  }
-
-  // const selected
+  };
 
   return (
     <div>
-      <select onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setSex(Number(e.target.value))}>
-        <option value="0">Мужской</option>
-        <option value="1">Женский</option>
-      </select>
-      <ExInput type="number" placeholder="Введите возраст...." value={age} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setAge(Number(e.target.value))} />
-      <ExInput type="number" placeholder="Введите рост...." value={height} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setHeight(Number(e.target.value))} />
-      <ExInput type="number" placeholder="Введите вес...." value={weight} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setWeight(Number(e.target.value))} />
-      {IMT > 0
-        ? <h1>ИМТ: {IMT}</h1>
-        : <h1>Данные не введены или не расчитаны</h1>
-      }
-
-      <ExInput type="number" placeholder="Введите ОП...." value={OP} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setOP(Number(e.target.value))} />
-      <ExInput type="number" placeholder="Введите КЖСИ...." value={KZST} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setKZST(Number(e.target.value))} />
-
-      {OMP > 0
-        ? <h1>ОМП: {OMP}</h1>
-        : <h1>Данные не введены или не расчитаны</h1>
-      }
-      {OOWH > 0
-        ? <h1>ОО Schofield (WH): {OOWH}</h1>
-        : <h1></h1>
-      }
-      {OOVOZ > 0
-        ? <h1>ОО ВОЗ: {OOVOZ}</h1>
-        : <h1></h1>
-      }
-      {OOHB > 0
-        ? <h1>ОО ОО Харриса-Бенедикта: {OOHB}</h1>
-        : <h1></h1>
-      }
-      <select value={idxSelectedKofs} onChange={(e: ChangeEvent<HTMLSelectElement>) => { setIdxSelectedKofs(Number(e.target.value)) }}>
-        {
-          konversKofs.map((item) =>
-            <option key={item.id} value={item.id}>{item.name}, {item.value}</option>
-          )
+      <Stack spacing={2}>
+        <FormControl fullWidth>
+          <InputLabel id="sex_lebel_id">Пол</InputLabel>
+          <Select labelId="sex_lebel_id" label="Пол" onChange={(e: SelectChangeEvent<HTMLSelectElement>) => setSex(Number(e.target.value))}>
+            <MenuItem value="0">Мужской</MenuItem>
+            <MenuItem value="1">Женский</MenuItem>
+          </Select>
+        </FormControl>
+        <ExInput variant="outlined" type="number" label="Возраст" value={age} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setAge(Number(e.target.value))} />
+        <ExInput variant="outlined" type="number" label="Рост" value={height} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setHeight(Number(e.target.value))} />
+        <ExInput variant="outlined" type="number" label="Вес" value={weight} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setWeight(Number(e.target.value))} />
+        {IMT > 0
+          ? <h3>ИМТ: {IMT}</h3>
+          : <h3>Данные не введены или не расчитаны</h3>
         }
-      </select>
-      <button onClick={addInMass}>Добавить условие</button>
+        <ExInput type="number" label="ОП" value={OP} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setOP(Number(e.target.value))} />
+        <ExInput type="number" label="КЖСИ" value={KZST} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setKZST(Number(e.target.value))} />
+        {OMP > 0
+          ? <h3>ОМП: {OMP}</h3>
+          : <h3>Данные не введены или не расчитаны</h3>
+        }
+        {OOWH > 0
+          ? <h3>ОО Schofield (WH): {OOWH}</h3>
+          : <h3></h3>
+        }
+        {OOVOZ > 0
+          ? <h3>ОО ВОЗ: {OOVOZ}</h3>
+          : <h3></h3>
+        }
+        {OOHB > 0
+          ? <h3>ОО ОО Харриса-Бенедикта: {OOHB}</h3>
+          : <h3></h3>
+        }
+        <FormControl fullWidth>
+          <InputLabel id="konv_cof_lebel_id">Конверсионные коэффициенты</InputLabel>
+          <Select labelId="konv_cof_lebel_id" label="Конверсионные коэффициенты" value={idxSelectedKofs} onChange={(e) => { setIdxSelectedKofs(Number(e.target.value)) }}>
+            {
+              konversKofs.map((item) =>
+                <MenuItem key={item.id} value={item.id}>{item.name}, {item.value}</MenuItem>
+              )
+            }
+          </Select >        </FormControl >
+        <Button onClick={addInMass} variant="contained">Добавить условие</Button>
+
+      </Stack>
       <hr />
       <ExKofList list={selKonversKofs} />
     </div>

@@ -1,14 +1,15 @@
+import { Grid, TextField } from "@mui/material";
 import React, { FunctionComponent } from "react";
 
-interface mInputProps
-{
-    value?:string;
+
+interface mInputProps {
+    value?: string;
 }
- //React.FC<mInputProps>
-const ExInput = (props:any) =>{
+//React.FC<mInputProps>
+const ExInput = (props: any) => {
     return (
-            <input {...props}></input>
-        );
+        <TextField  {...props} />
+    );
 };
 
 export default ExInput;

@@ -1,4 +1,5 @@
-import { FC } from "react";
+import { Box, Button, Paper, Stack } from "@mui/material";
+import React, { FC } from "react";
 import { KoversKofItem } from "../types/types";
 
 
@@ -11,17 +12,14 @@ const ExKofList = ({ list }: ExKofListProps) => {
   console.log(list);
 
   return (
-    <div>
+    <div><Stack spacing={2}>
       {
         list.map((item, idx) => (
-          <div key={idx}>
-            <div>{item.name}</div>
-            <div>{item.value}</div>
-          </div>
+          <Paper key={idx}>{item.name}, {item.value}<Button>Удалить</Button></Paper>
         )
         )
       }
-    </div>
+    </Stack></div>
   )
 }
 
