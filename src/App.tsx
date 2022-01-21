@@ -106,38 +106,44 @@ function App() {
   return (
     <div>
       <Stack spacing={2}>
-        <FormControl fullWidth>
+        <Stack direction="row" spacing={2}> <FormControl fullWidth>
           <InputLabel id="sex_lebel_id">Пол</InputLabel>
           <Select labelId="sex_lebel_id" label="Пол" onChange={(e: SelectChangeEvent<HTMLSelectElement>) => setSex(Number(e.target.value))}>
             <MenuItem value="0">Мужской</MenuItem>
             <MenuItem value="1">Женский</MenuItem>
           </Select>
         </FormControl>
-        <ExInput variant="outlined" type="number" label="Возраст" value={age} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setAge(Number(e.target.value))} />
-        <ExInput variant="outlined" type="number" label="Рост" value={height} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setHeight(Number(e.target.value))} />
-        <ExInput variant="outlined" type="number" label="Вес" value={weight} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setWeight(Number(e.target.value))} />
-        {IMT > 0
-          ? <h3>ИМТ: {IMT}</h3>
-          : <h3>Данные не введены или не расчитаны</h3>
-        }
-        <ExInput type="number" label="ОП" value={OP} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setOP(Number(e.target.value))} />
-        <ExInput type="number" label="КЖСИ" value={KZST} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setKZST(Number(e.target.value))} />
-        {OMP > 0
-          ? <h3>ОМП: {OMP}</h3>
-          : <h3>Данные не введены или не расчитаны</h3>
-        }
-        {OOWH > 0
-          ? <h3>ОО Schofield (WH): {OOWH}</h3>
-          : <h3></h3>
-        }
-        {OOVOZ > 0
-          ? <h3>ОО ВОЗ: {OOVOZ}</h3>
-          : <h3></h3>
-        }
-        {OOHB > 0
-          ? <h3>ОО ОО Харриса-Бенедикта: {OOHB}</h3>
-          : <h3></h3>
-        }
+          <ExInput variant="outlined" type="number" label="Возраст" value={age} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setAge(Number(e.target.value))} />
+          <ExInput variant="outlined" type="number" label="Рост" value={height} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setHeight(Number(e.target.value))} />
+          <ExInput variant="outlined" type="number" label="Вес" value={weight} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setWeight(Number(e.target.value))} />
+        </Stack>
+        <Stack direction="row" spacing={2}>
+          <ExInput type="number" label="ОП" value={OP} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setOP(Number(e.target.value))} />
+          <ExInput type="number" label="КЖСИ" value={KZST} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setKZST(Number(e.target.value))} />
+
+          {OMP > 0
+            ? <h3>ОМП: {OMP}</h3>
+            : <h3>Данные не введены или не расчитаны</h3>
+          }
+        </Stack>
+        <Grid columns={2}>
+          {IMT > 0
+            ? <h3>ИМТ: {IMT}</h3>
+            : <h3>Данные не введены или не расчитаны</h3>
+          }
+          {OOWH > 0
+            ? <h3>ОО Schofield (WH): {OOWH}</h3>
+            : <h3></h3>
+          }
+          {OOVOZ > 0
+            ? <h3>ОО ВОЗ: {OOVOZ}</h3>
+            : <h3></h3>
+          }
+          {OOHB > 0
+            ? <h3>ОО ОО Харриса-Бенедикта: {OOHB}</h3>
+            : <h3></h3>
+          }
+        </Grid>
         <ExKoExKonvCofSelector konversKofs={konversKofs} idxSelectedKofs={idxSelectedKofs} setIdxSelectedKofs={setIdxSelectedKofs} />
         <Button onClick={addInMass} variant="contained">Добавить условие</Button>
 
