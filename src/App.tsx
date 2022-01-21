@@ -13,6 +13,7 @@ import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
+import ExKoExKonvCofSelector from './components/ExKonvCofSelector';
 
 function App() {
 
@@ -93,7 +94,6 @@ function App() {
 
   const [idxSelectedKofs, setIdxSelectedKofs] = useState(0);
 
-
   const addInMass = () => {
 
     if (selKonversKofs.indexOf(konversKofs[idxSelectedKofs - 1]) < 0) {
@@ -138,15 +138,7 @@ function App() {
           ? <h3>ОО ОО Харриса-Бенедикта: {OOHB}</h3>
           : <h3></h3>
         }
-        <FormControl fullWidth>
-          <InputLabel id="konv_cof_lebel_id">Конверсионные коэффициенты</InputLabel>
-          <Select labelId="konv_cof_lebel_id" label="Конверсионные коэффициенты" value={idxSelectedKofs} onChange={(e) => { setIdxSelectedKofs(Number(e.target.value)) }}>
-            {
-              konversKofs.map((item) =>
-                <MenuItem key={item.id} value={item.id}>{item.name}, {item.value}</MenuItem>
-              )
-            }
-          </Select >        </FormControl >
+        <ExKoExKonvCofSelector konversKofs={konversKofs} idxSelectedKofs={idxSelectedKofs} setIdxSelectedKofs={setIdxSelectedKofs} />
         <Button onClick={addInMass} variant="contained">Добавить условие</Button>
 
       </Stack>

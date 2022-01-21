@@ -9,8 +9,6 @@ interface ExKofListProps {
 
 
 const ExKofList = ({ list }: ExKofListProps) => {
-  console.log(list);
-
   return (
     <div><Stack spacing={2}>
       {
