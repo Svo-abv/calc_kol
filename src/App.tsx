@@ -12,6 +12,7 @@ import '@fontsource/roboto/700.css';
 
 import ExKoExKonvCofSelector from './components/ExKonvCofSelector';
 import BiologicalParamGroup from './components/BiologicalParamGroup';
+import FRECalculator from './components/FRECalculator';
 
 function App() {
 
@@ -111,6 +112,7 @@ function App() {
           }
         </Grid>
         <ExKoExKonvCofSelector />
+        <FRECalculator freCoefficient={4.641} />
       </Stack>
     </div>
 
