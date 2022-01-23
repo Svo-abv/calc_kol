@@ -71,6 +71,8 @@ const Main = () => {
         setOOHB(Math.round(tmpHB * 10) / 10);
 
     }, [weight, height, age, sex]);
+
+    const [currentFreCoefficient, setCurrentFreCoefficient] = useState(1);
     return (
         <div>
             <Stack spacing={2}>
@@ -101,8 +103,8 @@ const Main = () => {
                         : <h3></h3>
                     }
                 </Grid>
-                <ExKoExKonvCofSelector />
-                <FRECalculator freCoefficient={4.641} />
+                <ExKoExKonvCofSelector currentFreCoefficient={currentFreCoefficient} setCurrentFreCoefficient={setCurrentFreCoefficient} />
+                <FRECalculator freCoefficient={currentFreCoefficient} />
             </Stack>
 
         </div>

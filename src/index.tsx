@@ -14,8 +14,9 @@ import CssBaseline from '@mui/material/CssBaseline';
 import { Container, StyledEngineProvider } from '@mui/material';
 
 ReactDOM.render(
-  <Provider store={store}><CssBaseline />
-    <Container maxWidth="sm">
+  <Provider store={store}>
+    <CssBaseline />
+    <Container maxWidth="md">
       <App />
     </Container>
   </Provider >,

@@ -1,5 +1,5 @@
 import ExInput from "./ExInput";
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { Stack } from "@mui/material";
 
 interface IFRECalculator {
@@ -13,13 +13,21 @@ const FRECalculator = (props: IFRECalculator) => {
     const [fats, setFats] = useState(0);
     const [carbohydates, setCarbohydrates] = useState(0);
 
+    function recalcFre(value: number) {
+        setFre(Math.round(value * props.freCoefficient));
+    };
+
+    const t = useMemo(() => recalcFre(mainMetabolism), [props.freCoefficient]);
+
+
+
     return (
         <div>
             <Stack spacing={2}>
                 <h3>При расчете используется следующий коэффициент: {props.freCoefficient}</h3>
                 <ExInput variant="outlined" type="number" label="Основной обмен" value={mainMetabolism} onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                     setMainMetabolism(Number(e.target.value));
-                    setFre(Number(e.target.value) * props.freCoefficient);
+                    recalcFre(Number(e.target.value));
                 }
                 } />
                 <ExInput variant="outlined" type="number" label="ФРЕ" value={fre} />
