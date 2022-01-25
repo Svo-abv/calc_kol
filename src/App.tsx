@@ -1,18 +1,16 @@
 import React, { ChangeEvent, useMemo, useState } from 'react';
-import { isTemplateExpression } from 'typescript';
 import './App.css';
 import ExInput from './components/ExInput';
-import ExKofList from './components/ExKofList';
-import konversKofData from './data/data.json';
-import { kofOO, kofItemOO, kofOOHB, KoversKofItem } from './types/types';
-import Button from '@mui/material/Button';
-import { Box, FormControl, Grid, InputLabel, MenuItem, Select, SelectChangeEvent, Stack } from '@mui/material';
+import { kofOO, kofOOHB, KoversKofItem } from './types/types';
+import { FormControl, Grid, InputLabel, MenuItem, Select, SelectChangeEvent, Stack } from '@mui/material';
 
 
 import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
+
+import ExKoExKonvCofSelector from './components/ExKonvCofSelector';
 
 function App() {
 
@@ -65,16 +63,12 @@ function App() {
   const calcOO = useMemo(() => {
 
     let idxAge = 0;
-
     if (age >= 0 && age < 3)
       idxAge = 0;
     else if (age >= 3 && age < 10)
       idxAge = 1;
     else
       idxAge = 2;
-
-
-    console.log(`used ${kofVOZ[sex].sex[idxAge].k1} ${kofVOZ[sex].sex[idxAge].k2} ${kofVOZ[sex].sex[idxAge].k3}`);
 
     let tmpWH = (kofWH[sex].sex[idxAge].k1 * weight) + (kofWH[sex].sex[idxAge].k2 * height) + kofWH[sex].sex[idxAge].k3;
     let tmpVOZ = (kofVOZ[sex].sex[idxAge].k1 * weight) + kofVOZ[sex].sex[idxAge].k2;
@@ -83,75 +77,50 @@ function App() {
     setOOVOZ(Math.round(tmpVOZ * 10) / 10);
     setOOHB(Math.round(tmpHB * 10) / 10);
 
-
   }, [weight, height, age, sex]);
-
-
-  const konversKofs: KoversKofItem[] = konversKofData.data;
-
-  const [selKonversKofs, setSelKonversKofs] = useState<KoversKofItem[]>([]);
-
-  const [idxSelectedKofs, setIdxSelectedKofs] = useState(0);
-
-
-  const addInMass = () => {
-
-    if (selKonversKofs.indexOf(konversKofs[idxSelectedKofs - 1]) < 0) {
-      let tmp = selKonversKofs.concat(konversKofs[idxSelectedKofs - 1]);
-      setSelKonversKofs(tmp);
-    }
-
-  };
 
   return (
     <div>
       <Stack spacing={2}>
-        <FormControl fullWidth>
+        <Stack direction="row" spacing={2}> <FormControl fullWidth>
           <InputLabel id="sex_lebel_id">Пол</InputLabel>
           <Select labelId="sex_lebel_id" label="Пол" onChange={(e: SelectChangeEvent<HTMLSelectElement>) => setSex(Number(e.target.value))}>
             <MenuItem value="0">Мужской</MenuItem>
             <MenuItem value="1">Женский</MenuItem>
           </Select>
         </FormControl>
-        <ExInput variant="outlined" type="number" label="Возраст" value={age} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setAge(Number(e.target.value))} />
-        <ExInput variant="outlined" type="number" label="Рост" value={height} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setHeight(Number(e.target.value))} />
-        <ExInput variant="outlined" type="number" label="Вес" value={weight} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setWeight(Number(e.target.value))} />
-        {IMT > 0
-          ? <h3>ИМТ: {IMT}</h3>
-          : <h3>Данные не введены или не расчитаны</h3>
-        }
-        <ExInput type="number" label="ОП" value={OP} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setOP(Number(e.target.value))} />
-        <ExInput type="number" label="КЖСИ" value={KZST} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setKZST(Number(e.target.value))} />
-        {OMP > 0
+          <ExInput variant="outlined" type="number" label="Возраст" value={age} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setAge(Number(e.target.value))} />
+          <ExInput variant="outlined" type="number" label="Рост" value={height} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setHeight(Number(e.target.value))} />
+          <ExInput variant="outlined" type="number" label="Вес" value={weight} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setWeight(Number(e.target.value))} />
+        </Stack>
+        <Stack direction="row" spacing={2}>
+          <ExInput type="number" label="ОП" value={OP} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setOP(Number(e.target.value))} />
+          <ExInput type="number" label="КЖСИ" value={KZST} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setKZST(Number(e.target.value))} />
+        </Stack>
+        <Grid columns={2}>{OMP > 0
           ? <h3>ОМП: {OMP}</h3>
           : <h3>Данные не введены или не расчитаны</h3>
         }
-        {OOWH > 0
-          ? <h3>ОО Schofield (WH): {OOWH}</h3>
-          : <h3></h3>
-        }
-        {OOVOZ > 0
-          ? <h3>ОО ВОЗ: {OOVOZ}</h3>
-          : <h3></h3>
-        }
-        {OOHB > 0
-          ? <h3>ОО ОО Харриса-Бенедикта: {OOHB}</h3>
-          : <h3></h3>
-        }
-        <FormControl fullWidth>
-          <InputLabel id="konv_cof_lebel_id">Конверсионные коэффициенты</InputLabel>
-          <Select labelId="konv_cof_lebel_id" label="Конверсионные коэффициенты" value={idxSelectedKofs} onChange={(e) => { setIdxSelectedKofs(Number(e.target.value)) }}>
-            {
-              konversKofs.map((item) =>
-                <MenuItem key={item.id} value={item.id}>{item.name}, {item.value}</MenuItem>
-              )
-            }
-          </Select >        </FormControl >
-        <Button onClick={addInMass} variant="contained">Добавить условие</Button>
 
+          {IMT > 0
+            ? <h3>ИМТ: {IMT}</h3>
+            : <h3>Данные не введены или не расчитаны</h3>
+          }
+          {OOWH > 0
+            ? <h3>ОО Schofield (WH): {OOWH}</h3>
+            : <h3></h3>
+          }
+          {OOVOZ > 0
+            ? <h3>ОО ВОЗ: {OOVOZ}</h3>
+            : <h3></h3>
+          }
+          {OOHB > 0
+            ? <h3>ОО ОО Харриса-Бенедикта: {OOHB}</h3>
+            : <h3></h3>
+          }
+        </Grid>
+        <ExKoExKonvCofSelector />
       </Stack>
-      <hr />
-      <ExKofList list={selKonversKofs} />
     </div>
 
   );
