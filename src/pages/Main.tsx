@@ -78,8 +78,8 @@ const Main = () => {
             <Stack spacing={2}>
                 <BiologicalParamGroup sex={{ sex, setSex }} weight={{ weight, setWeight }} height={{ height, setHeight }} age={{ age, setAge }} />
                 <Stack direction="row" spacing={2}>
-                    <ExInput type="number" label="ОП" value={OP} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setOP(Number(e.target.value))} />
-                    <ExInput type="number" label="КЖСИ" value={KZST} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setKZST(Number(e.target.value))} />
+                    <ExInput fullWidth type="number" label="ОП" value={OP} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setOP(Number(e.target.value))} />
+                    <ExInput fullWidth type="number" label="КЖСИ" value={KZST} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setKZST(Number(e.target.value))} />
                 </Stack>
                 <Grid columns={2}>{OMP > 0
                     ? <h3>ОМП: {OMP}</h3>
@@ -104,7 +104,7 @@ const Main = () => {
                     }
                 </Grid>
                 <ExKoExKonvCofSelector currentFreCoefficient={currentFreCoefficient} setCurrentFreCoefficient={setCurrentFreCoefficient} />
-                <FRECalculator freCoefficient={currentFreCoefficient} />
+                <FRECalculator freCoefficient={currentFreCoefficient} currentWeight={weight} />
             </Stack>
 
         </div>
