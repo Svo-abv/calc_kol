@@ -1,5 +1,5 @@
 import { Button, FormControl, InputLabel, MenuItem, Select, Stack } from "@mui/material";
-import React, { FC, useState } from "react";
+import React, { FC, useState, useEffect } from "react";
 import { KoversKofItem } from "../types/types";
 import ExKofList from "./ExKofList";
 import konversKofData from '../data/data.json';
@@ -7,13 +7,13 @@ import konversKofData from '../data/data.json';
 interface IPopsExKoExKonvCofSelector {
     //  konversСofs: KoversKofItem[];
     // selKonversСofs: KoversKofItem[];
-    //idxSelectedKofs: number;
-    // setSelKonversСofs: React.Dispatch<React.SetStateAction<number>>;
+    currentFreCoefficient: number;
+    setCurrentFreCoefficient: React.Dispatch<React.SetStateAction<number>>;
 }
 
 const ExKoExKonvCofSelector = (props: IPopsExKoExKonvCofSelector) => {
 
-    const [idxSelectedKofs, setIdxSelectedKofs] = useState(0);
+    const [idxSelectedKofs, setIdxSelectedKofs] = useState(1);
     const [selKonversСofs, setSelKonversСofs] = useState<KoversKofItem[]>([]);
     const konversСofs: KoversKofItem[] = konversKofData.data;
 
@@ -21,11 +21,16 @@ const ExKoExKonvCofSelector = (props: IPopsExKoExKonvCofSelector) => {
 
         if (selKonversСofs.indexOf(konversСofs[idxSelectedKofs - 1]) < 0) {
             let tmp = selKonversСofs.concat(konversСofs[idxSelectedKofs - 1]);
+            //Перемножим коэффиценты для дальнейшего применения
+            var s = 1;
+            for (var i = 0; i < tmp.length; i++) {
+
+                s = (tmp[i].value * s);
+            }
             setSelKonversСofs(tmp);
+            props.setCurrentFreCoefficient(s);
         }
-
     };
-
 
 
     return (
