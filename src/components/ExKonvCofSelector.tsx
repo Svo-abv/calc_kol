@@ -17,21 +17,27 @@ const ExKoExKonvCofSelector = (props: IPopsExKoExKonvCofSelector) => {
     const [selKonversСofs, setSelKonversСofs] = useState<KoversKofItem[]>([]);
     const konversСofs: KoversKofItem[] = konversKofData.data;
 
+    useEffect(() => {
+
+        //Перемножим коэффиценты для дальнейшего применения
+        var s = 1;
+        for (var i = 0; i < selKonversСofs.length; i++) {
+            s = (selKonversСofs[i].value * s);
+        }
+        props.setCurrentFreCoefficient(s);
+    },
+        [selKonversСofs]);
+
     const addInMass = () => {
-
         if (selKonversСofs.indexOf(konversСofs[idxSelectedKofs - 1]) < 0) {
-            let tmp = selKonversСofs.concat(konversСofs[idxSelectedKofs - 1]);
-            //Перемножим коэффиценты для дальнейшего применения
-            var s = 1;
-            for (var i = 0; i < tmp.length; i++) {
-
-                s = (tmp[i].value * s);
-            }
-            setSelKonversСofs(tmp);
-            props.setCurrentFreCoefficient(s);
+            setSelKonversСofs(selKonversСofs.concat(konversСofs[idxSelectedKofs - 1]));
         }
     };
 
+
+    const removeInMass = (id: KoversKofItem) => {
+        setSelKonversСofs(selKonversСofs.filter(k => k !== id));
+    };
 
     return (
         <div>
@@ -48,8 +54,7 @@ const ExKoExKonvCofSelector = (props: IPopsExKoExKonvCofSelector) => {
                 </FormControl >
                 <Button onClick={addInMass} variant="contained">Добавить</Button>
             </Stack>
-            <hr />
-            <ExKofList list={selKonversСofs} />
+            <ExKofList list={selKonversСofs} remove={removeInMass} />
 
         </div>
 
