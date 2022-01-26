@@ -26,52 +26,39 @@ const FRECalculator = (props: IFRECalculator) => {
     const [specificEnergyPerKg, setSpecificEnergyPerKg] = useState(0);
     const [noneProteinCallories, setNoneProteinCallories] = useState(0);
 
-    function recalcFre(value: number) { setFre(Math.round(value * props.freCoefficient)); };
-
-    function calcProteins() {
-        setProteins(Math.round((fre * proteinsPersent) / 4));
-        setProteinsPerKg(Math.round(((fre * proteinsPersent) / 4) / props.currentWeight * 10) / 10);
-    };
-    function calcFats() {
-        setFats(Math.round((fre * fatsPersent) / 9));
-        setFatsPerKg(Math.round(((fre * fatsPersent) / 9) / props.currentWeight * 10) / 10);
-    };
-    function calcCarbohydates() {
-        setCarbohydrates(Math.round((fre * carbohydatesPersent) / 4));
-        setCarbohydratesPerKg(Math.round(((fre * carbohydatesPersent) / 4) / props.currentWeight * 10) / 10);
-    };
-    function calcspecificEnergyPerKg() {
-        setSpecificEnergyPerKg(Math.round((fre / props.currentWeight) * 10) / 10);
-    };
-
-    function calcNoneProteinCallories() {
-        setNoneProteinCallories(Math.round((fats * 9 + carbohydates * 4) / proteins));
-    }
-    useMemo(() => {
-        calcNoneProteinCallories();
-    }, [fats, carbohydates, proteins]);
-
     //Пересчитаем ФРЕ при обновлении основного значения каллорий или конверсионного коэффициента
-    useEffect(() => recalcFre(mainMetabolism), [props.freCoefficient, mainMetabolism]);
+    useEffect(() => {
+        setFre(Math.round(mainMetabolism * props.freCoefficient));
+    }, [props.freCoefficient, mainMetabolism]);
 
     //Пересчитаем углеводы при изменении процентного соотношения
-    useEffect(() => calcCarbohydates(), [carbohydatesPersent]);
+    useEffect(() => {
+        setCarbohydrates(Math.round((fre * carbohydatesPersent) / 4));
+        setCarbohydratesPerKg(Math.round(((fre * carbohydatesPersent) / 4) / props.currentWeight * 10) / 10);
+    }, [carbohydatesPersent, fre, props.currentWeight]);
 
     //Пересчитаем белки при изменении процентного соотношения
-    useEffect(() => calcProteins(), [proteinsPersent]);
+    useEffect(() => {
+        setProteins(Math.round((fre * proteinsPersent) / 4));
+        setProteinsPerKg(Math.round(((fre * proteinsPersent) / 4) / props.currentWeight * 10) / 10);
+    }, [proteinsPersent, fre, props.currentWeight]);
 
     //Пересчитаем жиры при изменении процентного соотношения
-    useEffect(() => calcFats(), [fatsPersent]);
-
-    //Пересчитаем все при изменении ФРЕ
     useEffect(() => {
-        calcProteins();
-        calcFats();
-        calcCarbohydates();
-        calcspecificEnergyPerKg();
-        //calcNoneProteinCallories();
+        setFats(Math.round((fre * fatsPersent) / 9));
+        setFatsPerKg(Math.round(((fre * fatsPersent) / 9) / props.currentWeight * 10) / 10);
+    }, [fatsPersent, fre, props.currentWeight]);
 
-    }, [fre]);
+    //Пересчитаем значение не белковых каллорий
+    useEffect(() => {
+        setNoneProteinCallories(Math.round((fats * 9 + carbohydates * 4) / proteins));
+    }, [fats, carbohydates, proteins]);
+
+    //Удельная энергия на массу тела
+    useEffect(() => {
+        setSpecificEnergyPerKg(Math.round((fre / props.currentWeight) * 10) / 10);
+        console.log(1);
+    }, [fre, props.currentWeight]);
 
     return (
         <div>
