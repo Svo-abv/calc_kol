@@ -7,7 +7,7 @@ import konversKofData from '../data/data.json';
 interface IPopsExKoExKonvCofSelector {
     //  konversСofs: KoversKofItem[];
     // selKonversСofs: KoversKofItem[];
-    currentFreCoefficient: number;
+    //currentFreCoefficient: number;
     setCurrentFreCoefficient: React.Dispatch<React.SetStateAction<number>>;
 }
 

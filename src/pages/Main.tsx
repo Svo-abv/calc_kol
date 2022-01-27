@@ -3,12 +3,13 @@ import React, { useMemo, useState } from 'react';
 import BiologicalParamGroup from '../components/BiologicalParamGroup';
 import ExInput from '../components/ExInput';
 import ExKoExKonvCofSelector from '../components/ExKonvCofSelector';
-import FRECalculator from '../components/FRECalculator';
+import FRECalculator from '../components/FRECalculator/FRECalculator';
 import { kofOO, kofOOHB } from '../types/types';
 
 const Main = () => {
     const [sex, setSex] = useState(0);
     const [weight, setWeight] = useState<number>(15);
+    let stateWeight = false;
     const [height, setHeight] = useState<number>(1.2);
     const [age, setAge] = useState<number>(3);
     const [IMT, setIMT] = useState(0);
@@ -78,7 +79,7 @@ const Main = () => {
     return (
         <div>
             <Stack spacing={2}>
-                <BiologicalParamGroup sex={{ sex, setSex }} weight={{ weight, setWeight }} height={{ height, setHeight }} age={{ age, setAge }} />
+                <BiologicalParamGroup sex={{ sex, setSex }} weight={{ weight, setWeight, stateWeight }} height={{ height, setHeight }} age={{ age, setAge }} />
                 <Stack direction="row" spacing={2}>
                     <ExInput fullWidth type="number" label="ОП" value={OP} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setOP(Number(e.target.value))} />
                     <ExInput fullWidth type="number" label="КЖСИ" value={KZST} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setKZST(Number(e.target.value))} />
@@ -105,8 +106,8 @@ const Main = () => {
                         : <h3></h3>
                     }
                 </Grid>
-                <ExKoExKonvCofSelector currentFreCoefficient={currentFreCoefficient} setCurrentFreCoefficient={setCurrentFreCoefficient} />
-                <FRECalculator freCoefficient={currentFreCoefficient} currentWeight={weight} />
+                <ExKoExKonvCofSelector setCurrentFreCoefficient={setCurrentFreCoefficient} />
+                <FRECalculator freCoefficient={currentFreCoefficient} currentWeight={weight} stateWeight={stateWeight} />
             </Stack>
         </div>
 
