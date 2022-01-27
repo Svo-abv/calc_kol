@@ -50,7 +50,7 @@ const Main = () => {
     ];
     const kofHB: kofOOHB[] = [ // ОО по формуле Харриса-Бенедикта
         { sex: { k1: 664.7, k2: 13.75, k3: 5, k4: 6.77 } },  // Мужские
-        { sex: { k1: 655.1, k2: 9.56, k3: 1.85, k4: 4.67 } }   // Женские =655,1+9,56*J30+1,85*K30-4,67*L30
+        { sex: { k1: 655.1, k2: 9.56, k3: 1.85, k4: 4.67 } }   // Женские 
     ];
 
     const calcOO = useMemo(() => {
@@ -73,6 +73,8 @@ const Main = () => {
     }, [weight, height, age, sex]);
 
     const [currentFreCoefficient, setCurrentFreCoefficient] = useState(1);
+
+    //console.log(3);
     return (
         <div>
             <Stack spacing={2}>
@@ -106,7 +108,6 @@ const Main = () => {
                 <ExKoExKonvCofSelector currentFreCoefficient={currentFreCoefficient} setCurrentFreCoefficient={setCurrentFreCoefficient} />
                 <FRECalculator freCoefficient={currentFreCoefficient} currentWeight={weight} />
             </Stack>
-
         </div>
 
     )

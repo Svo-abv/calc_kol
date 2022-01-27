@@ -24,7 +24,7 @@ const ExKoExKonvCofSelector = (props: IPopsExKoExKonvCofSelector) => {
         for (var i = 0; i < selKonversСofs.length; i++) {
             s = (selKonversСofs[i].value * s);
         }
-        props.setCurrentFreCoefficient(s);
+        props.setCurrentFreCoefficient(Math.round((s) * 100) / 100);
     },
         [selKonversСofs]);
 
