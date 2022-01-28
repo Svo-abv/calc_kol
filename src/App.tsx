@@ -12,14 +12,11 @@ import About from './pages/About';
 import Main from './pages/Main';
 import FoodConsumption from './pages/FoodConsumption';
 import ProductDictionary from './pages/ProductDictionary';
-import { AppBar, IconButton, Link, Toolbar } from '@mui/material';
 import NavigationBar from './components/NavigationBar';
 
 
 
 function App() {
-
-
 
   return (
     <div>
@@ -32,10 +29,7 @@ function App() {
           <Route path="/" element={<Main />} />
         </Routes>
       </BrowserRouter>
-
-
     </div >
-
   );
 }
 

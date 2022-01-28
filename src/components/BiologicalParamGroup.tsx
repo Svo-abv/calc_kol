@@ -13,20 +13,24 @@ interface IBiologicalParamGroup {
 }
 
 const BiologicalParamGroup = (params: IBiologicalParamGroup) => {
+
+    const handleSexChanghe = (e: SelectChangeEvent) => params.sex.setSex(Number(e.target.value));
+    const handleAgeChanghe = (e: React.ChangeEvent<HTMLInputElement>) => params.age.setAge(Number(e.target.value));
+    const handleHeightChanghe = (e: React.ChangeEvent<HTMLInputElement>) => params.height.setHeight(Number(e.target.value));
+    const handleWeightChanghe = (e: React.ChangeEvent<HTMLInputElement>) => params.weight.setWeight(Number(e.target.value));
     return (<div>
         <Stack direction="row" spacing={2}>
             <FormControl fullWidth>
                 <InputLabel id="sex_lebel_id">Пол</InputLabel>
-                <Select labelId="sex_lebel_id" label="Пол" onChange={(e: SelectChangeEvent<HTMLSelectElement>) => params.sex.setSex(Number(e.target.value))}>
-                    <MenuItem value="0">Мужской</MenuItem>
-                    <MenuItem value="1">Женский</MenuItem>
+                <Select defaultValue="0" labelId="sex_lebel_id" label="Пол" onChange={handleSexChanghe}>
+                    <MenuItem value={0} >Мужской</MenuItem>
+                    <MenuItem value={1}>Женский</MenuItem>
                 </Select>
             </FormControl>
-            <ExInput variant="outlined" type="number" label="Возраст" value={params.age.age} onChange={(e: React.ChangeEvent<HTMLInputElement>) => params.age.setAge(Number(e.target.value))} />
-            <ExInput variant="outlined" type="number" label="Рост" value={params.height.height} onChange={(e: React.ChangeEvent<HTMLInputElement>) => params.height.setHeight(Number(e.target.value))} />
-            <ExInput variant="outlined" type="number" label="Вес" value={params.weight.weight} onChange={(e: React.ChangeEvent<HTMLInputElement>) => params.weight.setWeight(Number(e.target.value))} />
+            <ExInput variant="outlined" type="number" label="Возраст" value={params.age.age} onChange={handleAgeChanghe} />
+            <ExInput variant="outlined" type="number" label="Рост" value={params.height.height} onChange={handleHeightChanghe} />
+            <ExInput variant="outlined" type="number" label="Вес" value={params.weight.weight} onChange={handleWeightChanghe} />
         </Stack>
-
     </div>)
 }
 

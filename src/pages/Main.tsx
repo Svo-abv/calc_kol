@@ -3,12 +3,13 @@ import React, { useMemo, useState } from 'react';
 import BiologicalParamGroup from '../components/BiologicalParamGroup';
 import ExInput from '../components/ExInput';
 import ExKoExKonvCofSelector from '../components/ExKonvCofSelector';
-import FRECalculator from '../components/FRECalculator';
+import FRECalculator from '../components/FRECalculator/FRECalculator';
 import { kofOO, kofOOHB } from '../types/types';
 
 const Main = () => {
     const [sex, setSex] = useState(0);
     const [weight, setWeight] = useState<number>(15);
+    let stateWeight = false;
     const [height, setHeight] = useState<number>(1.2);
     const [age, setAge] = useState<number>(3);
     const [IMT, setIMT] = useState(0);
@@ -50,7 +51,7 @@ const Main = () => {
     ];
     const kofHB: kofOOHB[] = [ // ОО по формуле Харриса-Бенедикта
         { sex: { k1: 664.7, k2: 13.75, k3: 5, k4: 6.77 } },  // Мужские
-        { sex: { k1: 655.1, k2: 9.56, k3: 1.85, k4: 4.67 } }   // Женские =655,1+9,56*J30+1,85*K30-4,67*L30
+        { sex: { k1: 655.1, k2: 9.56, k3: 1.85, k4: 4.67 } }   // Женские 
     ];
 
     const calcOO = useMemo(() => {
@@ -72,11 +73,13 @@ const Main = () => {
 
     }, [weight, height, age, sex]);
 
-    const [currentFreCoefficient, setCurrentFreCoefficient] = useState(1);
+
+
+    //console.log(3);
     return (
         <div>
             <Stack spacing={2}>
-                <BiologicalParamGroup sex={{ sex, setSex }} weight={{ weight, setWeight }} height={{ height, setHeight }} age={{ age, setAge }} />
+                <BiologicalParamGroup sex={{ sex, setSex }} weight={{ weight, setWeight, stateWeight }} height={{ height, setHeight }} age={{ age, setAge }} />
                 <Stack direction="row" spacing={2}>
                     <ExInput fullWidth type="number" label="ОП" value={OP} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setOP(Number(e.target.value))} />
                     <ExInput fullWidth type="number" label="КЖСИ" value={KZST} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setKZST(Number(e.target.value))} />
@@ -103,10 +106,8 @@ const Main = () => {
                         : <h3></h3>
                     }
                 </Grid>
-                <ExKoExKonvCofSelector currentFreCoefficient={currentFreCoefficient} setCurrentFreCoefficient={setCurrentFreCoefficient} />
-                <FRECalculator freCoefficient={currentFreCoefficient} currentWeight={weight} />
+                <FRECalculator currentWeight={weight} />
             </Stack>
-
         </div>
 
     )
