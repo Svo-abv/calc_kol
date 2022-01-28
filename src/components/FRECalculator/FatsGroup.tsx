@@ -3,28 +3,28 @@ import React, { useState } from 'react';
 import ExInput from '../ExInput';
 
 interface IFatsGroup {
-    fre: number;
     currentWeight: number;
     fats: number;
-    setFats: React.Dispatch<React.SetStateAction<number>>;
+    fatsPercent: number;
+    handleSetFatsPercent: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
 const FatsGroup = (props: IFatsGroup) => {
 
-    const calcFatsPerKg = (_fats: number, _currentWeight: number) => { return Math.round((_fats / _currentWeight) * 10) / 10 };
-    const calcFats = (_fre: number, _fatsPercent: number) => { return Math.round((_fre * _fatsPercent) / 9) };
+    // const calcFatsPerKg = (_fats: number, _currentWeight: number) => { return Math.round((_fats / _currentWeight) * 10) / 10 };
+    // const calcFats = (_fre: number, _fatsPercent: number) => { return Math.round((_fre * _fatsPercent) / 9) };
 
-    const handleSetFatsPercent = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const newFatsPercent = (Number(e.target.value));
-        setFatsPercent(newFatsPercent);
+    // const handleSetFatsPercent = (e: React.ChangeEvent<HTMLInputElement>) => {
+    //     const newFatsPercent = (Number(e.target.value));
+    //     setFatsPercent(newFatsPercent);
 
-        const newFats = calcFats(props.fre, newFatsPercent);
-        props.setFats(newFats);
-        setFatsPerKg(calcFatsPerKg(newFats, props.currentWeight));
-    };
+    //     const newFats = calcFats(props.fre, newFatsPercent);
+    //     props.setFats(newFats);
+    //     setFatsPerKg(calcFatsPerKg(newFats, props.currentWeight));
+    // };
 
-    const [fatsPercent, setFatsPercent] = useState(0.35);
-    const [fatsPerKg, setFatsPerKg] = useState(calcFatsPerKg(props.fre, props.currentWeight));
+
+    // const [fatsPerKg, setFatsPerKg] = useState(calcFatsPerKg(props.fats, props.currentWeight));
 
     console.log("FatsGroup");
 
@@ -33,8 +33,8 @@ const FatsGroup = (props: IFatsGroup) => {
     return (
         <Stack direction="row" spacing={2}>
             <ExInput fullWidth variant="outlined" type="number" label="Жиры, г" value={props.fats} />
-            <ExInput variant="outlined" type="number" label="Жиры, %" value={fatsPercent} onChange={handleSetFatsPercent} />
-            <ExInput variant="outlined" type="number" label="Жиры , г/кг" value={fatsPerKg} />
+            <ExInput variant="outlined" type="number" label="Жиры, %" value={props.fatsPercent} onChange={props.handleSetFatsPercent} />
+            <ExInput variant="outlined" type="number" label="Жиры , г/кг" value={Math.round((props.fats / props.currentWeight) * 10) / 10} />
         </Stack>
     );
 }

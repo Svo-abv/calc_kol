@@ -73,7 +73,7 @@ const Main = () => {
 
     }, [weight, height, age, sex]);
 
-    const [currentFreCoefficient, setCurrentFreCoefficient] = useState(1);
+
 
     //console.log(3);
     return (
@@ -106,8 +106,7 @@ const Main = () => {
                         : <h3></h3>
                     }
                 </Grid>
-                <ExKoExKonvCofSelector setCurrentFreCoefficient={setCurrentFreCoefficient} />
-                <FRECalculator freCoefficient={currentFreCoefficient} currentWeight={weight} stateWeight={stateWeight} />
+                <FRECalculator currentWeight={weight} />
             </Stack>
         </div>
 

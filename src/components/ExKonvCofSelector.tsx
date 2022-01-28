@@ -1,5 +1,5 @@
 import { Button, FormControl, InputLabel, MenuItem, Select, Stack } from "@mui/material";
-import React, { FC, useState, useEffect } from "react";
+import React, { FC, useState, useEffect, useMemo } from "react";
 import { KoversKofItem } from "../types/types";
 import ExKofList from "./ExKofList";
 import konversKofData from '../data/data.json';
@@ -8,7 +8,7 @@ interface IPopsExKoExKonvCofSelector {
     //  konversСofs: KoversKofItem[];
     // selKonversСofs: KoversKofItem[];
     //currentFreCoefficient: number;
-    setCurrentFreCoefficient: React.Dispatch<React.SetStateAction<number>>;
+    handleSetCurrentFreCoefficient: (t: number) => void;
 }
 
 const ExKoExKonvCofSelector = (props: IPopsExKoExKonvCofSelector) => {
@@ -24,9 +24,8 @@ const ExKoExKonvCofSelector = (props: IPopsExKoExKonvCofSelector) => {
         for (var i = 0; i < selKonversСofs.length; i++) {
             s = (selKonversСofs[i].value * s);
         }
-        props.setCurrentFreCoefficient(Math.round((s) * 100) / 100);
-    },
-        [selKonversСofs]);
+        props.handleSetCurrentFreCoefficient(Math.round((s) * 100) / 100);
+    }, [selKonversСofs]);
 
     const addInMass = () => {
         if (selKonversСofs.indexOf(konversСofs[idxSelectedKofs - 1]) < 0) {
