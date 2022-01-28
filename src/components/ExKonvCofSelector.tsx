@@ -1,13 +1,11 @@
 import { Button, FormControl, InputLabel, MenuItem, Select, Stack } from "@mui/material";
-import React, { FC, useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect } from "react";
 import { KoversKofItem } from "../types/types";
 import ExKofList from "./ExKofList";
 import konversKofData from '../data/data.json';
 
 interface IPopsExKoExKonvCofSelector {
-    //  konversСofs: KoversKofItem[];
-    // selKonversСofs: KoversKofItem[];
-    //currentFreCoefficient: number;
+
     handleSetCurrentFreCoefficient: (t: number) => void;
 }
 
