@@ -17,7 +17,7 @@ const ProteinsGroup = (props: IProteinsGroup) => {
     return (
         <Stack direction="row" spacing={2}>
             <ExInput fullWidth variant="outlined" type="number" label="Белки, г" value={props.proteins} />
-            <ExInput variant="outlined" type="number" label="Белки, %" value={props.proteinsPercent} onChange={props.handleSetProteinsPercent} />
+            <ExInput variant="outlined" type="number" label="Белки, %" value={props.proteinsPercent} inputProps={{ step: 0.01 }} onChange={props.handleSetProteinsPercent} />
             <ExInput variant="outlined" type="number" label="Белки, г/кг" value={Math.round((props.proteins / props.currentWeight) * 10) / 10} />
         </Stack>
     );

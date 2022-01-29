@@ -28,8 +28,8 @@ const BiologicalParamGroup = (params: IBiologicalParamGroup) => {
                     <MenuItem value={1}>Женский</MenuItem>
                 </Select>
             </FormControl>
-            <ExInput variant="outlined" type="number" label="Возраст" value={params.age.age} onChange={handleAgeChanghe} />
-            <ExInput variant="outlined" type="number" label="Рост" value={params.height.height} onChange={handleHeightChanghe} />
+            <ExInput variant="outlined" type="number" label="Возраст" inputProps={{ step: 0.5 }} value={params.age.age} onChange={handleAgeChanghe} />
+            <ExInput variant="outlined" type="number" label="Рост" inputProps={{ step: 0.1 }} value={params.height.height} onChange={handleHeightChanghe} />
             <ExInput variant="outlined" type="number" label="Вес" value={params.weight.weight} onChange={handleWeightChanghe} />
         </Stack>
     </div>)

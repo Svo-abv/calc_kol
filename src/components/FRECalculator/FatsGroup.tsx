@@ -16,7 +16,7 @@ const FatsGroup = (props: IFatsGroup) => {
     return (
         <Stack direction="row" spacing={2}>
             <ExInput fullWidth variant="outlined" type="number" label="Жиры, г" value={props.fats} />
-            <ExInput variant="outlined" type="number" label="Жиры, %" value={props.fatsPercent} onChange={props.handleSetFatsPercent} />
+            <ExInput variant="outlined" type="number" label="Жиры, %" value={props.fatsPercent} inputProps={{ step: 0.01 }} onChange={props.handleSetFatsPercent} />
             <ExInput variant="outlined" type="number" label="Жиры , г/кг" value={Math.round((props.fats / props.currentWeight) * 10) / 10} />
         </Stack>
     );
