@@ -10,7 +10,7 @@ interface IProteinsGroup {
 };
 
 const ProteinsGroup = (props: IProteinsGroup) => {
-    console.log("ProteinsGroup");
+    //  console.log("ProteinsGroup");
 
     // props.setProteins(calcProteins(props.fre, proteinsPercent));
 

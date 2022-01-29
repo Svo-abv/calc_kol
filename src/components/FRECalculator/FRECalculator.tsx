@@ -35,7 +35,7 @@ const FRECalculator = (props: IFRECalculator) => {
     const [carbohydrates, setCarbohydrates] = useState(calcCarbohydrates(fre, fatsPercent));
 
 
-    console.log("root");
+    //console.log("root");
 
     const handleSetCurrentFreCoefficient = (newCurrentFreCoefficient: number) => {
 

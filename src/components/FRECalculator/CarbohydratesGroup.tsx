@@ -11,7 +11,7 @@ interface ICarbohydratesGroup {
 
 const CarbohydratesGroup = (props: ICarbohydratesGroup) => {
 
-    console.log("CarbohydratesGroup");
+    //  console.log("CarbohydratesGroup");
 
     //props.setCarbohydrates(calcCarbohydrates(props.fre, carbohydratesPercent));
 

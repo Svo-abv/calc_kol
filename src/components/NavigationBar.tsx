@@ -12,6 +12,12 @@ const NavigationBar = () => {
         setAnchorEl(null);
     };
 
+    const handleLinkClick = () => {
+        //e.stopPropagation();
+        //document.title = "12345";
+        // console.log(e);
+    };
+
     return (
         <div>
             <AppBar position="static">
@@ -27,7 +33,7 @@ const NavigationBar = () => {
                         <MenuIcon />
                     </IconButton>
                     <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleClose}>
-                        <MenuItem><Link href="/" underline="none" color="black">Калькулятор</Link></MenuItem>
+                        <MenuItem><Link href="/" underline="none" color="black" onClick={handleLinkClick}>Калькулятор</Link></MenuItem>
                         <MenuItem><Link href="/FoodConsumption" underline="none" color="black">Нормы потребления</Link></MenuItem>
                         <MenuItem><Link href="/ProductDictionary" underline="none" color="black">Справочник питания</Link></MenuItem>
                         <MenuItem><Link href="/About" underline="none" color="black">О программе</Link></MenuItem>

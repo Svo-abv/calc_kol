@@ -12,7 +12,7 @@ const FREGroup = (props: IFREGroup) => {
 
 
 
-    console.log("FREGroup");
+    //console.log("FREGroup");
 
     // const newFre = useMemo(() => {
 

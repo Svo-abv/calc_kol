@@ -11,7 +11,7 @@ interface IFatsGroup {
 
 const FatsGroup = (props: IFatsGroup) => {
 
-    console.log("FatsGroup");
+    // console.log("FatsGroup");
 
     return (
         <Stack direction="row" spacing={2}>
