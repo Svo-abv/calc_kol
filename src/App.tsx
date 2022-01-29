@@ -1,7 +1,6 @@
 import React from 'react';
 import './App.css';
 
-
 import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
@@ -12,15 +11,11 @@ import About from './pages/About';
 import Main from './pages/Main';
 import FoodConsumption from './pages/FoodConsumption';
 import ProductDictionary from './pages/ProductDictionary';
-import NavigationBar from './components/NavigationBar';
-
-
 
 function App() {
 
   return (
     <div>
-      <NavigationBar />
       <BrowserRouter>
         <Routes>
           <Route path="/About" element={<About />} />

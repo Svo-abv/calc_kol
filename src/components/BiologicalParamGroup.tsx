@@ -12,6 +12,7 @@ interface IBiologicalParamGroup {
     height: Height;
 }
 
+
 const BiologicalParamGroup = (params: IBiologicalParamGroup) => {
 
     const handleSexChanghe = (e: SelectChangeEvent) => params.sex.setSex(Number(e.target.value));

@@ -38,7 +38,6 @@ export interface Age {
 export interface Weight {
   weight: number;
   setWeight: React.Dispatch<React.SetStateAction<number>>;
-  stateWeight: boolean;
 }
 
 export interface Height {

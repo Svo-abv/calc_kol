@@ -1,15 +1,30 @@
-import { Grid, Paper, Stack, Typography } from '@mui/material';
+import { Grid, Stack } from '@mui/material';
 import React, { useMemo, useState } from 'react';
 import BiologicalParamGroup from '../components/BiologicalParamGroup';
 import ExInput from '../components/ExInput';
-import ExKoExKonvCofSelector from '../components/ExKonvCofSelector';
 import FRECalculator from '../components/FRECalculator/FRECalculator';
 import { kofOO, kofOOHB } from '../types/types';
 
+
+const kofWH: kofOO[] = [ // ОО по формулам Schofield (WH)
+    { sex: [{ k1: 0.167, k2: 1517.4, k3: -617.6 }, { k1: 19.6, k2: 130.3, k3: 414.9 }, { k1: 16.25, k2: 137.2, k3: 515.5 }] },  // Мужские 
+    { sex: [{ k1: 16.25, k2: 1023.2, k3: -413.5 }, { k1: 16.97, k2: 161.8, k3: 371.2 }, { k1: 8.365, k2: 465, k3: 200 }] }   // Женские
+];
+const kofVOZ: kofOO[] = [ // ОО по формулам ВОЗ
+    { sex: [{ k1: 60.9, k2: -54, k3: 0 }, { k1: 22.7, k2: 495, k3: 0 }, { k1: 17.5, k2: 651, k3: 0 }] },  // Мужские 
+    { sex: [{ k1: 61, k2: -51, k3: 0 }, { k1: 22.5, k2: 499, k3: 0 }, { k1: 12.2, k2: 746, k3: 0 }] }   // Женские
+];
+const kofHB: kofOOHB[] = [ // ОО по формуле Харриса-Бенедикта
+    { sex: { k1: 664.7, k2: 13.75, k3: 5, k4: 6.77 } },  // Мужские
+    { sex: { k1: 655.1, k2: 9.56, k3: 1.85, k4: 4.67 } }   // Женские 
+];
+
 const Main = () => {
+
+    document.title = "Калькулятор";
+
     const [sex, setSex] = useState(0);
     const [weight, setWeight] = useState<number>(15);
-    let stateWeight = false;
     const [height, setHeight] = useState<number>(1.2);
     const [age, setAge] = useState<number>(3);
     const [IMT, setIMT] = useState(0);
@@ -40,20 +55,6 @@ const Main = () => {
     const [OOWH, setOOWH] = useState<number>(0);
     const [OOHB, setOOHB] = useState<number>(0);
 
-    const kofWH: kofOO[] = [ // ОО по формулам Schofield (WH)
-        { sex: [{ k1: 0.167, k2: 1517.4, k3: -617.6 }, { k1: 19.6, k2: 130.3, k3: 414.9 }, { k1: 16.25, k2: 137.2, k3: 515.5 }] },  // Мужские 
-        { sex: [{ k1: 16.25, k2: 1023.2, k3: -413.5 }, { k1: 16.97, k2: 161.8, k3: 371.2 }, { k1: 8.365, k2: 465, k3: 200 }] }   // Женские
-    ];
-
-    const kofVOZ: kofOO[] = [ // ОО по формулам ВОЗ
-        { sex: [{ k1: 60.9, k2: -54, k3: 0 }, { k1: 22.7, k2: 495, k3: 0 }, { k1: 17.5, k2: 651, k3: 0 }] },  // Мужские 
-        { sex: [{ k1: 61, k2: -51, k3: 0 }, { k1: 22.5, k2: 499, k3: 0 }, { k1: 12.2, k2: 746, k3: 0 }] }   // Женские
-    ];
-    const kofHB: kofOOHB[] = [ // ОО по формуле Харриса-Бенедикта
-        { sex: { k1: 664.7, k2: 13.75, k3: 5, k4: 6.77 } },  // Мужские
-        { sex: { k1: 655.1, k2: 9.56, k3: 1.85, k4: 4.67 } }   // Женские 
-    ];
-
     const calcOO = useMemo(() => {
 
         let idxAge = 0;
@@ -72,14 +73,10 @@ const Main = () => {
         setOOHB(Math.round(tmpHB * 10) / 10);
 
     }, [weight, height, age, sex]);
-
-
-
-    //console.log(3);
     return (
         <div>
             <Stack spacing={2}>
-                <BiologicalParamGroup sex={{ sex, setSex }} weight={{ weight, setWeight, stateWeight }} height={{ height, setHeight }} age={{ age, setAge }} />
+                <BiologicalParamGroup sex={{ sex, setSex }} weight={{ weight, setWeight }} height={{ height, setHeight }} age={{ age, setAge }} />
                 <Stack direction="row" spacing={2}>
                     <ExInput fullWidth type="number" label="ОП" value={OP} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setOP(Number(e.target.value))} />
                     <ExInput fullWidth type="number" label="КЖСИ" value={KZST} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setKZST(Number(e.target.value))} />
@@ -88,7 +85,6 @@ const Main = () => {
                     ? <h3>ОМП: {OMP}</h3>
                     : <h3>Данные не введены или не расчитаны</h3>
                 }
-
                     {IMT > 0
                         ? <h3>ИМТ: {IMT}</h3>
                         : <h3>Данные не введены или не расчитаны</h3>
@@ -102,14 +98,13 @@ const Main = () => {
                         : <h3></h3>
                     }
                     {OOHB > 0
-                        ? <h3>ОО ОО Харриса-Бенедикта: {OOHB}</h3>
+                        ? <h3>ОО Харриса-Бенедикта: {OOHB}</h3>
                         : <h3></h3>
                     }
                 </Grid>
                 <FRECalculator currentWeight={weight} />
             </Stack>
         </div>
-
     )
 }
 

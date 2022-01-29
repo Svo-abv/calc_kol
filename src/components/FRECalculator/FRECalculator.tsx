@@ -111,8 +111,8 @@ const FRECalculator = (props: IFRECalculator) => {
                 <CarbohydratesGroup carbohydrates={carbohydrates} carbohydratesPercent={carbohydratesPercent} handleSetCarbohydratesPercent={handleSetCarbohydratesPercent} currentWeight={props.currentWeight} />
                 {
                     carbohydratesPercent + fatsPercent + proteinsPercent !== 1
-                        ? <h3>Внимание, сумма коэффициентов должна быть = 1, пожалуйста проверьте значения</h3>
-                        : <h3></h3>
+                        ? <h4>Внимание, сумма коэффициентов должна быть = 1, пожалуйста проверьте значения</h4>
+                        : <h4></h4>
                 }
                 <SpecificEnergyPerKg fre={fre} currentWeight={props.currentWeight} />
                 <NoneProteinCallories fats={fats} proteins={proteins} carbohydrates={carbohydrates} />

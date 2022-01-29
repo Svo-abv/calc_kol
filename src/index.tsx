@@ -12,12 +12,16 @@ import App from './App';
 import { store } from './store';
 import CssBaseline from '@mui/material/CssBaseline';
 import { Container, StyledEngineProvider } from '@mui/material';
+import NavigationBar from './components/NavigationBar';
 
 ReactDOM.render(
   <Provider store={store}>
     <CssBaseline />
     <Container maxWidth="md">
-      <App />
+      <NavigationBar />
+      <Container maxWidth="md">
+        <App />
+      </Container>
     </Container>
   </Provider >,
   document.getElementById('root')

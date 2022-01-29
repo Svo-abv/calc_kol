@@ -1,0 +1,19 @@
+ .tableHead{
+     text-align: center;
+ }
+ .energyRow{
+     background-color: rgb(242,220,219);
+ }
+ .proteinsRow{
+      background-color: rgb(216, 228,188);
+  }
+.fatsRow{
+      background-color: rgb(252,213,180);
+
+  }
+  .carbohydratesRow{
+       background-color: rgb(184,204,228);
+  }
+  .cell{
+    text-align: center;  
+  }
